@@ -5,7 +5,12 @@ RUN apt-get update
 RUN apt-get install -y apt-utils zip unzip curl netcat zlib1g-dev libzip-dev 
 RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libgd-dev libpng-dev libxmp-dev libjpeg-dev
 RUN apt-get install -y nginx cron libonig-dev
-RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ --with-xpm 
+RUN docker-php-ext-configure gd \
+    --with-gd \
+    --with-jpeg-dir \
+    --with-png-dir \
+    --with-zlib-dir \
+    --with-xpm 
 RUN docker-php-ext-install iconv pdo json
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install zip
