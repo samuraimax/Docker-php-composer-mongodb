@@ -24,7 +24,7 @@ RUN apt-get install -y --no-install-recommends openssl libssl-dev libcurl4-opens
 RUN mkdir -p /var/log/supervisor
 RUN mkdir -p /run/supervisor
 RUN mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
-RUN pecl install mongodb
+RUN pecl install mongodb-1.14.2
 RUN echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/ext-mongodb.ini
 
 RUN pecl install imagick-3.7.0
