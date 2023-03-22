@@ -31,6 +31,8 @@ RUN pecl install imagick-3.7.0
 # RUN pecl install xdebug && docker-php-ext-enable xdebug
 RUN docker-php-ext-enable imagick
 
+RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo pdo_pgsql
+
 # RUN useradd -G www-data,root -u $uid -d /home/$user $user
 # RUN mkdir -p /home/$user/.composer && \
 #     chown -R $user:$user /home/$user
