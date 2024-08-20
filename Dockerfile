@@ -1,11 +1,12 @@
-FROM php:7.4-fpm
+FROM php:8.2-fpm
 # ARG user=kazha
 # ARG uid=1000
 RUN apt-get update
-RUN apt-get install -y apt-utils zip unzip curl netcat zlib1g-dev   
+#RUN apt-get install -y apt-utils zip unzip curl netcat zlib1g-dev
+RUN apt-get install -y apt-utils zip unzip curl zlib1g-dev netcat-openbsd
 RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libgd-dev libpng-dev libxmp-dev libjpeg-dev libzip-dev
 RUN apt-get install -y nginx cron libonig-dev
-RUN apt-get install -y libicu-dev
+RUN apt-get install -y libicu-dev libpq-dev
 RUN apt-get update --fix-missing
 RUN apt-get install -y libmagickwand-dev --no-install-recommends
 RUN docker-php-ext-configure gd \
@@ -14,7 +15,9 @@ RUN docker-php-ext-configure gd \
     --with-xpm && docker-php-ext-install -j$(nproc) gd
 
 RUN docker-php-ext-install intl
-RUN docker-php-ext-install iconv pdo json
+RUN docker-php-ext-install iconv
+RUN docker-php-ext-install pdo
+#RUN docker-php-ext-install json
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install zip 
 RUN docker-php-ext-install mbstring
@@ -31,7 +34,7 @@ RUN pecl install imagick-3.7.0
 # RUN pecl install xdebug && docker-php-ext-enable xdebug
 RUN docker-php-ext-enable imagick
 
-RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo pdo_pgsql
+RUN apt-get update && docker-php-ext-install pdo pdo_pgsql
 
 # RUN useradd -G www-data,root -u $uid -d /home/$user $user
 # RUN mkdir -p /home/$user/.composer && \
